@@ -43,15 +43,7 @@ class SongDetailView(HitCountDetailView):
     count_hit = True
     slug_field = "url"
 
-    def get_context_data(self, **kwargs):
-        # context = super(SongDetailView, self).get_context_data(**kwargs)
-        # context.update({
-        #     'popular_songs': Song.objects.order_by('-hit_count_generic__hits')[:3],
-        # })
-        # return context
-        context = super().get_context_data(**kwargs)
-        context["star_form"] = RatingForm()
-        return context
+
 
 
 class ArtistView(DetailView):
@@ -88,24 +80,3 @@ class AlbumDetailView(HitCountDetailView):
         return context
 
 
-# class AddStarRating(View):
-#     """Добавление рейтинга треку"""
-#     def get_client_ip(self, request):
-#         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-#         if x_forwarded_for:
-#             ip = x_forwarded_for.split(',')[0]
-#         else:
-#             ip = request.META.get('REMOTE_ADDR')
-#         return ip
-#
-#     def post(self, request):
-#         form = RatingForm(request.POST)
-#         if form.is_valid():
-#             Rating.objects.update_or_create(
-#                 ip=self.get_client_ip(request),
-#                 song_id=int(request.POST.get("song")),
-#                 defaults={'star_id': int(request.POST.get("star"))}
-#             )
-#             return HttpResponse(status=201)
-#         else:
-#             return HttpResponse(status=400)

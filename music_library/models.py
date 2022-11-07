@@ -81,44 +81,7 @@ class Song(models.Model):
         verbose_name_plural = 'Треки'
 
 
-class RatingStar(models.Model):
-    """Звезда рейтинга"""
-    value = models.SmallIntegerField("Значение", default=0)
-
-    def __str__(self):
-        return f'{self.value}'
-
-    class Meta:
-        verbose_name = "Звезда рейтинга"
-        verbose_name_plural = "Звезды рейтинга"
-        ordering = ["value"]
 
 
-class Rating(models.Model):
-    """Рейтинг"""
-    ip = models.CharField("IP адрес", max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
-    song = models.ForeignKey(Song, on_delete=models.CASCADE, verbose_name="трек")
-    album = models.ForeignKey(Album, on_delete=models.CASCADE, verbose_name="альбом")
-
-    def __str__(self):
-        return f"{self.star} - {self.song}"
-
-    class Meta:
-        verbose_name = "Рейтинг"
-        verbose_name_plural = "Рейтинги"
 
 
-# class Playlist(models.Model):
-#     name = models.CharField(verbose_name='Название', max_length=100)
-#     update_date = models.DateField(verbose_name='Дата обновления')
-#     duration = models.DurationField(verbose_name='Продолжительность')
-#     num_songs = models.IntegerField(verbose_name='Кол-во треков')
-#     description = models.TextField(verbose_name='Описание')
-#
-#     def __str__(self):
-#         return self.name
-#
-#     class Meta:
-#         verbose_name = 'Плейлист'
-#         verbose_name_plural = 'Плейлисты'
