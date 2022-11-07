@@ -1,0 +1,33 @@
+{% extends 'base_page.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Albums list</title>{% endblock %}
+</head>
+<body>
+{% load hitcount_tags %}
+{% block content %}
+
+    <b>Список альбомов:</b>
+    <br>
+    <br>
+    {% for album in album_list %}
+
+        {{ forloop.counter }}. <a href="{% url 'album' album.pk %}">{{ album.name }}</a>
+        <br>
+        <b>Исполнитель:</b> <a href="{% url 'artist' album.artist.pk %}">{{ album.artist.name }}</a>
+        <br>
+        <b>Обложка:</b> <br>
+        <img style="height: 10%; width: 10%; margin-left: 4%" src="{{ album.poster.url }}">
+        <br>
+
+        <br>
+        <br>
+
+    {% endfor %}
+
+
+{% endblock %}
+</body>
+</html>

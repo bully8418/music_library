@@ -1,0 +1,54 @@
+{% extends 'base_page.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Artist Detail</title>{% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+
+    <b>Имя:</b> {{ artist_info.name }}
+    <br>
+    <b>Жанр:</b> {{ artist_info.genre }}
+    <br>
+    <b>Дата рождения:</b> {{ artist_info.birth_date }}
+    <br>
+    <b>Место рождения:</b> {{ artist_info.home_town }}
+    <br>
+    <b>Об исполнителе </b><a href="{% url 'artist' artist_info.pk %}">{{ artist_info.name }}:</a>
+    {{ artist_info.about }}
+    <br>
+    <br>
+    {% for albums in artist_info.albums_all.all %}
+        <b>Альбомы: </b><a href="{% url 'album' albums.pk %}">  {{ albums }}</a>
+        <br>
+
+        <img style="height: 10%; width: 10%; margin-left: 4%" src="{{ albums.poster.url }}">
+    {% endfor %}
+    <br>
+    <br>
+
+    <b>Популярные треки:</b>
+    <br>
+    <br>
+    {#{% for songs in album_info.song_album.all %}#}
+    {##}
+    {#     {{ forloop.counter }}. {{ songs.name }}#}
+    {#    <br>#}
+    {##}
+    {#        <audio controls>#}
+    {#            <source src="{{ songs.file.url }}">#}
+    {#        </audio>#}
+    {#        <br>#}
+    {#        <br>#}
+    {##}
+    {#{% endfor %}#}
+
+{% endblock %}
+
+
+</body>
+</html>

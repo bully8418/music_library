@@ -1,0 +1,61 @@
+{% extends 'base_page.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Song Detail</title>{% endblock %}
+<script src="{% static 'js/scripts.js' %}"></script>
+
+</head>
+<body>
+{% load hitcount_tags %}
+{% load ratings %}
+
+{% block content %}
+
+
+
+    {{ rate.name }}
+    <br>
+    <br>
+    <audio controls>
+        <source src="{{ rate.file.url }}">
+    </audio>
+
+    <br>
+    <br>
+    <br>
+{#    <form action="{% url 'add_rating' %}" method="post" name="rating">#}
+{#        <b>Рейтинг:</b>#}
+{#        {% csrf_token %}#}
+{#        <input type="hidden" value="{{ song.id }}" name="song">#}
+{#        <span class="rating">#}
+{#             {% for k, v in star_form.fields.star.choices %}#}
+{#                 <input id="rating{{ v }}" type="radio" name="star"#}
+{#                        value="{{ v }}">#}
+{#                 <label for="rating{{ v }}">{{ k }}</label>#}
+{#             {% endfor %}#}
+{#        </span>#}
+{#        <span class="editContent"></span>#}
+{#    </form>#}
+
+
+
+    Дата публикации: {{ rate.date }}
+    <br>
+    Просмотров: {% get_hit_count for rate %}
+
+{% ratings object %}
+    <h3>Популярные треки</h3>
+    {% for p in popular_songs %}
+
+        <p>{{ forloop.counter }}. {{ p }}</p>
+    {% endfor %}
+
+
+{% endblock %}
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="http://twitter.github.com/hogan.js/builds/3.0.1/hogan-3.0.1.js"></script>
+</body>
+</html>
