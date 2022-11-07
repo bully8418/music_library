@@ -1,0 +1,20 @@
+{% extends 'star_ratings/widget_base.html' %}
+
+{% block rating_container %}
+    {{ block.super }}
+{#    <strong>Общий рейтинг: <i id="ccc"></i></strong>#}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elem = document.getElementById('{{ id }}');
+            elem.addEventListener('rate-success', function (e) {
+                console.log(e.detail);
+                {#let strong = document.getElementById('ccc');#}
+                {#strong.textContent = e.detail.rating.count;#}
+            });
+            elem.addEventListener('rate-failed', function (e) {
+                console.log(e.detail);
+            });
+
+        })
+    </script>
+{% endblock %}

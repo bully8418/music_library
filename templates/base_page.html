@@ -4,15 +4,11 @@
 <head>
     <meta charset="UTF-8">
 
-    {% block title %}<title>MusicBox</title>{% endblock %}
-
-
-
+{% block css %}
 <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
-<link rel="stylesheet" href="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.css" />
-<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
-<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
-<script src="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.js"></script>
+{% endblock %}
+
+{% block title %}<title>MusicBox</title>{% endblock %}
 
 </head>
 
@@ -121,7 +117,11 @@
 {#</div>#}
 
 {% endblock %}
+
 </div>
-<script src="{% static 'js/scripts.js' %}"></script>
+{% block scripts %}
+
+{% endblock %}
 </body>
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 </html>
