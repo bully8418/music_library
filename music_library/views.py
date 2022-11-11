@@ -44,8 +44,6 @@ class SongDetailView(HitCountDetailView):
     slug_field = "url"
 
 
-
-
 class ArtistView(DetailView):
     model = Artist
     template_name = 'artist_page.html'
