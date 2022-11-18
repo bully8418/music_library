@@ -4,8 +4,8 @@
 {% load ratings %}
 
 {% block css %}
-<link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
-<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 {% endblock %}
 
 {% block title %}<title>Song Detail</title>{% endblock %}
@@ -14,41 +14,23 @@
 
 {% block content %}
 
-
-
     {{ rate.name }}
     <br>
     <br>
     <audio controls>
         <source src="{{ rate.file.url }}">
     </audio>
-
     <br>
     <br>
     <br>
-{#    <form action="{% url 'add_rating' %}" method="post" name="rating">#}
-{#        <b>Рейтинг:</b>#}
-{#        {% csrf_token %}#}
-{#        <input type="hidden" value="{{ song.id }}" name="song">#}
-{#        <span class="rating">#}
-{#             {% for k, v in star_form.fields.star.choices %}#}
-{#                 <input id="rating{{ v }}" type="radio" name="star"#}
-{#                        value="{{ v }}">#}
-{#                 <label for="rating{{ v }}">{{ k }}</label>#}
-{#             {% endfor %}#}
-{#        </span>#}
-{#        <span class="editContent"></span>#}
-{#    </form>#}
-
-
 
     Дата публикации: {{ rate.date }}
     <br>
     Просмотров: {% get_hit_count for rate %}
-       <br>
+    <br>
 
-{% ratings object %}
-    
+    {% ratings object %}
+
 
     <h3>Популярные треки</h3>
     {% for p in popular_songs %}

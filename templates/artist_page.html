@@ -1,12 +1,7 @@
 {% extends 'base_page.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% block title %}<title>Artist Detail</title>{% endblock %}
 
-</head>
-<body>
+{% block title %}<title>Artist Detail</title>{% endblock %}
+
 
 {% block content %}
 
@@ -34,21 +29,7 @@
     <b>Популярные треки:</b>
     <br>
     <br>
-    {#{% for songs in album_info.song_album.all %}#}
-    {##}
-    {#     {{ forloop.counter }}. {{ songs.name }}#}
-    {#    <br>#}
-    {##}
-    {#        <audio controls>#}
-    {#            <source src="{{ songs.file.url }}">#}
-    {#        </audio>#}
-    {#        <br>#}
-    {#        <br>#}
-    {##}
-    {#{% endfor %}#}
+
 
 {% endblock %}
 
-
-</body>
-</html>
