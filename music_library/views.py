@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 from .models import *
 from .forms import *
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator
 
@@ -13,20 +13,17 @@ class Search(ListView):
     model = Song
     template_name = 'search_result.html'
     context_object_name = 'search'
-    paginate_by = 2
+    paginate_by = 1
 
     def get_queryset(self):
         query = self.request.GET.get('q', None)
-        object_list = Song.objects.filter(
-            Q(name__icontains=query) | Q(artist__name__icontains=query.capitalize()) | Q(album__name__icontains=query)
-        )
-
-        return object_list
-
-    def get_context_data(self,  **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['query'] = self.request.GET.get('q')
-        return context
+        if query:
+            query = query.capitalize()
+            object_list = Song.objects.filter(
+                Q(name__icontains=query) | Q(artist__name__icontains=query) | Q(album__name__icontains=query)
+            )
+            return object_list
+        return Song.objects.all()
 
 
 # main page where all music and content
@@ -34,7 +31,7 @@ class SongView(ListView):
     queryset = Song.objects.order_by('-date')[:3]
     template_name = 'base_page.html'
     context_object_name = 'music'
-    paginate_by = 3
+    paginate_by = 1
 
 
 class SongDetailView(HitCountDetailView):
