@@ -1,5 +1,6 @@
+from django.conf.global_settings import AUTH_USER_MODEL
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, UserModel
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -92,5 +93,11 @@ class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'test.html'
     success_url = reverse_lazy('home')
+
+
+# class UserProfile(DetailView):
+#     model =
+#     template_name = 'registration/profile.html'
+#     context_object_name = 'user_profile'
 
 

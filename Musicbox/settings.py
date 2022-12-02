@@ -137,3 +137,5 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STAR_RATINGS_ANONYMOUS = True
+
+LOGIN_REDIRECT_URL = 'userprofile'
