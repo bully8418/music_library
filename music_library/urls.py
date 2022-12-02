@@ -9,8 +9,8 @@ urlpatterns = [
     path('<int:pk>/', SongDetailView.as_view(), name='detail'),
     path('albums/', AlbumsView.as_view(), name='albums'),
     path('artists/', ArtistsView.as_view(), name='artists'),
-    # path('sign/', ArtistsView.as_view(), name='sign_in'),
-    # path("add-rating/", AddStarRating.as_view(), name='add_rating'),
+    path('login/', LoginView.as_view(), name='login'),
+    path("register/", RegisterUser.as_view(), name='register'),
 ]
 
 

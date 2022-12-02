@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('music_library.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 

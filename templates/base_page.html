@@ -38,8 +38,8 @@
             </form>
 
             <div class="navbar-form navbar-right">
-{#                <a href="{% url 'sign_in' %}"><button type="button" class="btn btn-outline-light me-2">Войти</button></a>#}
-                <button type="button" class="btn btn-warning">Зарегистрироваться</button>
+                <a href="{% url 'login' %}"><button  type="button" class="btn btn-outline-light me-2">Войти</button></a> |
+                <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-light me-2">Регистрация</button></a>
             </div>
 
 {#            <div class="navbar-form navbar-right">#}
@@ -89,10 +89,6 @@
 
     {% block content %}
 
-
-
-
-
         {% for item in music %}
             <div class="link">
                 Альбом: <a style="text-decoration-color: blue;"
@@ -126,34 +122,34 @@
 
     {% endblock %}
 
-
+{#    {% block pagination %}#}
     <nav aria-label="...">
         <ul class="pagination">
             {% if page_obj.has_previous %}
                 <li class="page-item">
                 <a href="?page=1">&laquo;&laquo;&laquo;</a>
-                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}"
+                    <a class="page-link" href="?{{ q }}page={{ page_obj.previous_page_number }}"
                        aria-disabled="false">Предыдущая</a>
                 </li>
             {% endif %}
             {% for p in page_obj.paginator.page_range %}
-                {% if page_obj.number == p.number %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="?q={{ query }}&page=">{{ page_obj.number }}</a>
+                {% if page_obj.number == p %}
 
-                    </li>
-                {% else %}
-                    <li class="page-item  "><a class="page-link active" href="?q={{ query }}&page={{ p }}">{{ p }}</a></li>
+                    <li class="page-item active" aria-current="page"> <a class="page-link" href="?{{ q }}page={{ p }}">{{ p }}</a></li>
+
+                    {% else %}
+                    <li class="page-item" aria-current="page"> <a class="page-link " href="?{{ q }}page={{ p }}">{{ p }}</a></li>
                 {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}">Следующая</a>
+                    <a class="page-link" href="?{{ q }}page={{ page_obj.next_page_number }}">Следующая</a>
                     <a href="?page={{ page_obj.paginator.num_pages }}"> &raquo;&raquo;&raquo;</a>
                 </li>
             {% endif %}
         </ul>
     </nav>
+{#    {% endblock %}#}
 
 </div>
 

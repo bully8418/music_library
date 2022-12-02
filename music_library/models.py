@@ -54,11 +54,10 @@ class Album(models.Model):
     def get_absolute_url(self):
         return reverse('album', kwargs={'pk': self.pk})
 
-
-
     class Meta:
         verbose_name = 'Альбом'
         verbose_name_plural = 'Альбомы'
+        ordering = ['name']
 
 
 @python_2_unicode_compatible
@@ -79,6 +78,7 @@ class Song(models.Model):
     class Meta:
         verbose_name = 'Трек'
         verbose_name_plural = 'Треки'
+        ordering = ['name']
 
 
 

@@ -1,6 +1,9 @@
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.base import View
 from .models import *
 from .forms import *
@@ -11,19 +14,20 @@ from django.core.paginator import Paginator
 
 class Search(ListView):
     model = Song
-    template_name = 'search_result.html'
+    template_name = 'sound/search_result.html'
     context_object_name = 'search'
     paginate_by = 1
 
     def get_queryset(self):
-        query = self.request.GET.get('q', None)
-        if query:
-            query = query.capitalize()
-            object_list = Song.objects.filter(
-                Q(name__icontains=query) | Q(artist__name__icontains=query) | Q(album__name__icontains=query)
-            )
-            return object_list
-        return Song.objects.all()
+        return Song.objects.filter(
+            Q(name__icontains=self.request.GET.get('q')) | Q(artist__name__icontains=self.request.GET.get('q')) | Q(
+                album__name__icontains=self.request.GET.get('q'))
+        )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['q'] = f"q={self.request.GET.get('q')}&"
+        return context
 
 
 # main page where all music and content
@@ -36,7 +40,7 @@ class SongView(ListView):
 
 class SongDetailView(HitCountDetailView):
     model = Song
-    template_name = 'song_detail.html'
+    template_name = 'sound/song_detail.html'
     context_object_name = 'rate'
     pk_url_kwarg = 'pk'
     # set to True to count the hit
@@ -46,25 +50,25 @@ class SongDetailView(HitCountDetailView):
 
 class ArtistView(DetailView):
     model = Artist
-    template_name = 'artist_page.html'
+    template_name = 'artists/artist_page.html'
     context_object_name = 'artist_info'
 
 
 class AlbumsView(ListView):
     model = Album
-    template_name = 'albums_list.html'
+    template_name = 'albums/albums_list.html'
     context_object_name = 'album_list'
 
 
 class ArtistsView(ListView):
     model = Artist
-    template_name = 'artists_list.html'
+    template_name = 'artists/artists_list.html'
     context_object_name = 'artists'
 
 
 class AlbumDetailView(HitCountDetailView):
     model = Album
-    template_name = 'album_page.html'
+    template_name = 'albums/album_page.html'
     context_object_name = 'album_info'
     pk_url_kwarg = 'pk'
     # set to True to count the hit
@@ -77,5 +81,16 @@ class AlbumDetailView(HitCountDetailView):
         })
         return context
 
+
+class RegisterUser(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/registration.html'
+    success_url = reverse_lazy('login')
+
+
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'test.html'
+    success_url = reverse_lazy('home')
 
 
