@@ -138,4 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STAR_RATINGS_ANONYMOUS = True
 
-LOGIN_REDIRECT_URL = 'userprofile'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'

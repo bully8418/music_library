@@ -38,8 +38,14 @@
             </form>
 
             <div class="navbar-form navbar-right">
+                {% if user.is_authenticated %}
+                 <a href="{% url 'user_profile' user.pk %}"><p>{{ user.username }}!</p></a>
+                    <p><a href="{% url 'logout' %}">Выход</a></p>
+                {% else %}
+                <p>Вы не авторизовались...</p>
                 <a href="{% url 'login' %}"><button  type="button" class="btn btn-outline-light me-2">Войти</button></a> |
                 <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-light me-2">Регистрация</button></a>
+                {% endif %}
             </div>
 
 {#            <div class="navbar-form navbar-right">#}
@@ -155,6 +161,15 @@
 
 {% block scripts %}
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <script src="{% static 'js/playerjs (2).js' %}" type="text/javascript" async></script>
+
+   <script>
+   function PlayerjsAsync()
+    {
+    player = new Playerjs({id:"player", file:"media/2022/10/04/Agunda_Tajjpan_-_Mercayut_ogni_72830198.mp3", poster:"{{ music.song_album.poster.url }}"});
+    }
+   </script>
+
 {% endblock %}
 
 

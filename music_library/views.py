@@ -1,4 +1,5 @@
-from django.conf.global_settings import AUTH_USER_MODEL
+from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView, UserModel
 from django.http import HttpResponse
@@ -37,6 +38,9 @@ class SongView(ListView):
     template_name = 'base_page.html'
     context_object_name = 'music'
     paginate_by = 1
+
+    def get_queryset(self):
+        return Song.objects.all()
 
 
 class SongDetailView(HitCountDetailView):
@@ -95,9 +99,17 @@ class LoginUser(LoginView):
     success_url = reverse_lazy('home')
 
 
-# class UserProfile(DetailView):
-#     model =
-#     template_name = 'registration/profile.html'
-#     context_object_name = 'user_profile'
+class UserProfile(DetailView):
+    model = User
+    template_name = 'users/user_profile.html'
+    context_object_name = 'user_profile'
+
+#
+# def UserProfile(request):
+#     user_data = User.objects.all()
+#     context = {'username':}
+#     return render(request, 'base_page.html', context)
+
+
 
 

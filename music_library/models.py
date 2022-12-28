@@ -15,6 +15,10 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+
+
+
+
 class Artist(models.Model):
     name = models.CharField(verbose_name='Никнейм', max_length=100, db_index=True)
     about = models.TextField(verbose_name='Об артисте')

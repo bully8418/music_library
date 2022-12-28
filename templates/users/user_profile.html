@@ -1,0 +1,20 @@
+{% extends 'base_page.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+
+
+
+    <h3>Профиль пользователя: <b><font color="red">{{ user.username }}</font></b></h3>
+
+    <br>
+    Дата регистрации: {{ user.last_login }}
+    <br>
+    <br>
+    Плейлисты:
+
+
+
+{% endblock %}
