@@ -12,7 +12,11 @@ urlpatterns = [
     # path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('profile/<int:pk>/', UserProfile.as_view(), name='user_profile'),
-    # path('profile/<int:pk>/', UserProfile.as_view(), name='userprofile')
+    # path('profile/<int:pk>/allplaylists/', UserProfile.as_view(), name='userprofile'),
+    # path('allplaylists/', allplaylists_view, name='allplaylists'),
+    # path('playlistsongs/', playlistsongs_view, name='playlistsongs'),
+    # path('createplaylist/', createplaylist_view, name='createplaylist'),
+    # path('createplaylist/<int:pk>', addsongs_view, name='addsongs'),
 ]
 
 

@@ -104,12 +104,40 @@ class UserProfile(DetailView):
     template_name = 'users/user_profile.html'
     context_object_name = 'user_profile'
 
-#
-# def UserProfile(request):
-#     user_data = User.objects.all()
-#     context = {'username':}
-#     return render(request, 'base_page.html', context)
 
+# def allplaylists_view(request):
+#     playlists = Playlist.objects.all()
+#     currentuser = User
+#     return render(request, 'users/user_profile.html', {'playlists': playlists, 'currentuser': currentuser})
 
-
+    # def get_queryset(self):
+    #     return Playlist.objects.all(), User
+    #
+    # def playlistsongs_view(request):
+    #     playlists = Playlist.objects.all()
+    #     playlistName = request.GET.get('name')
+    #     return render(request, 'playlists/playlistsongs.html', {'playlists': playlists, 'playlistName': playlistName})
+    #
+    #
+    # def createplaylist_view(request):
+    #     songs = Song.objects
+    #     if request.method == 'POST':
+    #         playlist = Playlist()
+    #         playlist.list_name = request.POST['playlistname']
+    #         playlist.user = request.user
+    #         playlist.save()
+    #         print(playlist.list_name, playlist.user)
+    #         return render(request, 'playlists/addsongs.html', {'songs': songs})
+    #     else:
+    #         return render(request, 'playlists/createplaylist.html', {'songs': songs})
+    #
+    #
+    # def addsongs_view(request, pk):
+    #     songs = Song.objects.all()
+    #     playlist = Playlist.objects
+    #     if request.method == 'POST':
+    #         item = Song.objects.get(id=pk)
+    #         playlist.song = item
+    #         Playlist.objects.update(song=item)
+    #         return render(request, 'playlists/addsongs.html', {'songs': songs})
 

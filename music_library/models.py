@@ -3,7 +3,7 @@ import uuid
 
 import django.utils.timezone
 import os
-
+from django.contrib.auth.models import User, AbstractUser
 from django.utils.text import slugify
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
@@ -13,10 +13,6 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.utils import timezone
-
-
-
-
 
 
 class Artist(models.Model):
@@ -85,7 +81,13 @@ class Song(models.Model):
         ordering = ['name']
 
 
+class Playlist(models.Model):
+    list_name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    song = models.ManyToManyField(Song, blank=True, default=None, null=True)
 
+    def __str__(self):
+        return self.list_name
 
 
 
