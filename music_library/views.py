@@ -14,6 +14,7 @@ from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator
 
 
+
 class Search(ListView):
     model = Song
     template_name = 'sound/search_result.html'
@@ -41,6 +42,13 @@ class SongView(ListView):
 
     def get_queryset(self):
         return Song.objects.all()
+
+    # def get_context_data(self,  object_list=None, **kwargs):
+    #     context = super() .get_context_data(**kwargs)
+    #     context['s'] = f"s={self.request.GET.get('s')}&"
+    #     return context
+
+
 
 
 class SongDetailView(HitCountDetailView):
@@ -105,8 +113,30 @@ class UserProfile(DetailView):
     context_object_name = 'user_profile'
 
 
+class UserPlaylist(DetailView):
+    model = Playlist
+    template_name = 'playlists/playlistsongs.html'
+    context_object_name = 'user_playlist'
+
+
+def Add_Music(request, pk):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            playlist = UserPlaylist
+            user = request.user
+            music_p = Song.objects.get(id=pk)
+            user.user_playlist.add(music_p)
+            return render(request, 'base_page.html', {'music_p': music_p, 'user': user, 'playlist': playlist})
+
+
+
+
+
+
+
+
 # def allplaylists_view(request):
-#     playlists = Playlist.objects.all()
+#     playlists = Playlist.objects.filter(user=request.user).all()
 #     currentuser = User
 #     return render(request, 'users/user_profile.html', {'playlists': playlists, 'currentuser': currentuser})
 

@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base_page.html' %}
 
-</body>
-</html>
+{% block title %}Playlist{% endblock %}
+
+{% block content %}
+    {% for music in user_playlist.song.all %}
+    <audio controls>
+        <source src="{{ music.file.url }}">
+    </audio>
+        <br>
+        {{ music.name }}
+        <br>
+        <br>
+    {% endfor %}
+
+
+{% endblock %}

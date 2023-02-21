@@ -35,33 +35,4 @@ ________________________________________________________________________________
 {% endblock %}
 
 
-{#{% block pagination %}#}
-{##}
-{#    <nav aria-label="...">#}
-{#        <ul class="pagination">#}
-{#            {% if page_obj.has_previous %}#}
-{#                <li class="page-item">#}
-{#                <a href="?page=1">&laquo;&laquo;&laquo;</a>#}
-{#                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}"#}
-{#                       aria-disabled="false">Предыдущая</a>#}
-{#                </li>#}
-{#            {% endif %}#}
-{#            {% for p in page_obj.paginator.page_range %}#}
-{#                {% if page_obj.number == p %}#}
-{##}
-{#                    <li class="page-item active" aria-current="page"> <a class="page-link" href="?q={{ q }}&page={{ p }}">{{ p }}</a></li>#}
-{##}
-{#                {% else %}#}
-{#                    <li class="page-item  "><a class="page-link " href="?page={{ p }}">{{ p }}</a></li>#}
-{#                {% endif %}#}
-{#            {% endfor %}#}
-{#            {% if page_obj.has_next %}#}
-{#                <li class="page-item">#}
-{#                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a>#}
-{#                    <a href="?page={{ page_obj.paginator.num_pages }}"> &raquo;&raquo;&raquo;</a>#}
-{#                </li>#}
-{#            {% endif %}#}
-{#        </ul>#}
-{#    </nav>#}
-{#{% endblock %}#}
 

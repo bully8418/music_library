@@ -71,6 +71,7 @@ class Song(models.Model):
     # slug = models.SlugField(unique=True, max_length=100, default=uuid.uuid1)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
                                         related_query_name='hit_count_generic_relation')
+    # playlist = models.ManyToManyField('Playlist', verbose_name='Плейлист', related_name='play_song')
 
     def __str__(self):
         return self.name
@@ -83,8 +84,8 @@ class Song(models.Model):
 
 class Playlist(models.Model):
     list_name = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    song = models.ManyToManyField(Song, blank=True, default=None, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_playlist')
+    song = models.ManyToManyField(Song, verbose_name='Треки',  blank=True,  related_name='song_play')
 
     def __str__(self):
         return self.list_name
