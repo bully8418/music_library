@@ -8,6 +8,7 @@
 {% block css %}
     <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css"/>
 
+
 {% endblock %}
 
 
@@ -39,30 +40,34 @@
 
             <div class="navbar-form navbar-right">
                 {% if user.is_authenticated %}
-                 <a href="{% url 'user_profile' user.pk %}"><p>{{ user.username }}</p></a>
+                    <a href="{% url 'user_profile' user.pk %}"><p>{{ user.username }}</p></a>
                     <p><a href="{% url 'logout' %}">Выход</a></p>
                 {% else %}
-                <p>Вы не авторизовались...</p>
-                <a href="{% url 'login' %}"><button  type="button" class="btn btn-outline-light me-2">Войти</button></a> |
-                <a href="{% url 'register' %}"><button type="button" class="btn btn-outline-light me-2">Регистрация</button></a>
+                    <p>Вы не авторизовались...</p>
+                    <a href="{% url 'login' %}">
+                        <button type="button" class="btn btn-outline-light me-2">Войти</button>
+                    </a> |
+                    <a href="{% url 'register' %}">
+                        <button type="button" class="btn btn-outline-light me-2">Регистрация</button>
+                    </a>
                 {% endif %}
             </div>
 
-{#            <div class="navbar-form navbar-right">#}
-{#                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"#}
-{#                   aria-expanded="false">#}
-{#                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">#}
-{#                </a>#}
-{#                <ul class="dropdown-menu text-small">#}
-{#                    <li><a class="dropdown-item" href="#">Новый проект...</a></li>#}
-{#                    <li><a class="dropdown-item" href="#">Настройка</a></li>#}
-{#                    <li><a class="dropdown-item" href="#">Профиль</a></li>#}
-{#                    <li>#}
-{#                        <hr class="dropdown-divider">#}
-{#                    </li>#}
-{#                    <li><a class="dropdown-item" href="#">Выйти</a></li>#}
-{#                </ul>#}
-{#            </div>#}
+            {#            <div class="navbar-form navbar-right">#}
+            {#                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"#}
+            {#                   aria-expanded="false">#}
+            {#                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">#}
+            {#                </a>#}
+            {#                <ul class="dropdown-menu text-small">#}
+            {#                    <li><a class="dropdown-item" href="#">Новый проект...</a></li>#}
+            {#                    <li><a class="dropdown-item" href="#">Настройка</a></li>#}
+            {#                    <li><a class="dropdown-item" href="#">Профиль</a></li>#}
+            {#                    <li>#}
+            {#                        <hr class="dropdown-divider">#}
+            {#                    </li>#}
+            {#                    <li><a class="dropdown-item" href="#">Выйти</a></li>#}
+            {#                </ul>#}
+            {#            </div>#}
 
             <ul class="nav navbar-nav">
                 <li class=""><a href="{% url 'home' %}">Главная</a></li>
@@ -89,12 +94,8 @@
 <br>
 <br>
 <br>
-
-
 <div class="container">
-
     {% block content %}
-
         {% for item in music %}
             <div class="link">
                 Альбом: <a style="text-decoration-color: blue;"
@@ -113,77 +114,106 @@
                 <div id="player"></div>
             </div>
 
-
             <br>
             <audio controls>
                 <source src="{{ item.file.url }}">
             </audio>
-            <form action="{% url 'add_music' item.pk %}" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" name="{{ item.pk }}">Добавить в плейлист</button>
-            </form>
-            {{ user.user_playlist.all }}
-            {% for item in user.user_playlist.all %}
-                {% for s in item %}
-                    {{ s }}
-                {% endfor %}
-            {% endfor %}
-
-
             <br>
+            <br>
+
+
+
+
+            {#            {% if user.is_authenticated %}#}
+            {#            {% if user.user_playlist.exists %}#}
+            {#                <label>#}
+            {#                    {% for play_list in user.user_playlist.all %}#}
+            {#                        <option>{{ play_list }}</option>#}
+            {#                        {% for song in play_list.song.all %}#}
+            {#                        <audio controls>#}
+            {#                            <source src="{{ song.file.url }}">#}
+            {#                        </audio>#}
+            {#                         {% endfor %}#}
+            {#                    {% endfor %}#}
+            {#                </label>#}
+            {#            {% else %}#}
+            {#                no playlist#}
+            {#                <h3>create?</h3>#}
+            {#            {% endif %}#}
             {#    Просмотров {% get_hit_count for item %}#}
 
             <br>
             <br>
-
+            <br>
+            <br>
         {% endfor %}
 
     {% endblock %}
+</div>
+<br>
+<br>
 
-    {% block pagination %}
-    <nav aria-label="...">
-        <ul class="pagination">
-            {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a href="?{{ q }}page=1">&laquo;&laquo;&laquo;</a>
-                    <a class="page-link" href="?{{ q }}page={{ page_obj.previous_page_number }}"
-                       aria-disabled="false">Предыдущая</a>
-                </li>
-            {% endif %}
-            {% for p in page_obj.paginator.page_range %}
-                {% if page_obj.number == p %}
+{% block pagination %}
+    <div class="container">
+        <nav aria-label="...">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a href="?{{ q }}page=1">&laquo;&laquo;&laquo;</a>
+                        <a class="page-link" href="?{{ q }}page={{ page_obj.previous_page_number }}"
+                           aria-disabled="false">Предыдущая</a>
+                    </li>
+                {% endif %}
+                {% for p in page_obj.paginator.page_range %}
+                    {% if page_obj.number == p %}
 
-                    <li class="page-item active" aria-current="page"> <a class="page-link" href="?{{ q }}page={{ p }}">{{ p }}</a></li>
+                        <li class="page-item active" aria-current="page"><a class="page-link"
+                                                                            href="?{{ q }}page={{ p }}">{{ p }}</a></li>
 
                     {% else %}
-                    <li class="page-item" aria-current="page"> <a class="page-link " href="?{{ q }}page={{ p }}">{{ p }}</a></li>
+                        <li class="page-item" aria-current="page"><a class="page-link "
+                                                                     href="?{{ q }}page={{ p }}">{{ p }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{{ q }}page={{ page_obj.next_page_number }}">Следующая</a>
+                        <a href="?{{ q }}page={{ page_obj.paginator.num_pages }}"> &raquo;&raquo;&raquo;</a>
+                    </li>
                 {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?{{ q }}page={{ page_obj.next_page_number }}">Следующая</a>
-                    <a href="?{{ q }}page={{ page_obj.paginator.num_pages }}"> &raquo;&raquo;&raquo;</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endblock %}
+            </ul>
+        </nav>
+        .
+    </div>
+{% endblock %}
 
-</div>
+
 
 {% block scripts %}
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
     <script src="{% static 'js/playerjs (2).js' %}" type="text/javascript" async></script>
+    <script>
+        const audioList = document.querySelectorAll('audio')
+        let currentAudio
 
-{#   <script>#}
-{#   function PlayerjsAsync()#}
-{#    {#}
-{#    player = new Playerjs({id:"player", file:"media/2022/10/04/Agunda_Tajjpan_-_Mercayut_ogni_72830198.mp3", poster:"{{ music.song_album.poster.url }}"});#}
-{#    }#}
-{#   </script>#}
+        Array.prototype.forEach.call(audioList, audio => {
+            audio.addEventListener('play', e => {
+                if (currentAudio) currentAudio.pause()
+                currentAudio = e.target
+            })
+        })
+    </script>
+
+    {#   <script>#}
+    {#   function PlayerjsAsync()#}
+    {#    {#}
+    {#    player = new Playerjs({id:"player", file:"media/2022/10/04/Agunda_Tajjpan_-_Mercayut_ogni_72830198.mp3", poster:"{{ music.song_album.poster.url }}"});#}
+    {#    }#}
+    {#   </script>#}
 
 {% endblock %}
+
+
 
 
 

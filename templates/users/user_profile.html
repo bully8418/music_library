@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 
 {% block content %}
+    <div class="container">
 
     <h3>Профиль пользователя: <b><font color="red">{{ user_profile.username }}</font></b></h3>
 
@@ -23,7 +24,7 @@
         {% endfor %}
         <br>
 
-        <a>
+        <a href="{% url 'home' %}">
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                      class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
@@ -36,6 +37,8 @@
         <h3>У вас нет добавленных плейлистов!</h3>
         <button type="button" value="">Добавить</button>
     {% endif %}
+
+    </div>
 
 
 

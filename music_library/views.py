@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, AbstractUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView, UserModel
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
@@ -38,7 +38,7 @@ class SongView(ListView):
     queryset = Song.objects.order_by('-date')[:3]
     template_name = 'base_page.html'
     context_object_name = 'music'
-    paginate_by = 1
+    paginate_by = 3
 
     def get_queryset(self):
         return Song.objects.all()
@@ -119,14 +119,20 @@ class UserPlaylist(DetailView):
     context_object_name = 'user_playlist'
 
 
-def Add_Music(request, pk):
+def add_music(request, pk):
     if request.method == 'POST':
         if request.user.is_authenticated:
-            playlist = UserPlaylist
+            music = Song.objects.get(pk=pk)
             user = request.user
-            music_p = Song.objects.get(id=pk)
-            user.user_playlist.add(music_p)
-            return render(request, 'base_page.html', {'music_p': music_p, 'user': user, 'playlist': playlist})
+
+            playlist = user.user_playlist.first().field.add(music)
+
+            playlist.save()
+            context = {'music': music, 'playlist': playlist, 'user': user}
+            return render(request, 'base_page.html', context)
+    redirect('home')
+
+
 
 
 
