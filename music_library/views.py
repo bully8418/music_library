@@ -38,7 +38,7 @@ class SongView(ListView):
     queryset = Song.objects.order_by('-date')[:3]
     template_name = 'base_page.html'
     context_object_name = 'music'
-    paginate_by = 3
+    paginate_by = 1
 
     def get_queryset(self):
         return Song.objects.all()
@@ -47,8 +47,6 @@ class SongView(ListView):
     #     context = super() .get_context_data(**kwargs)
     #     context['s'] = f"s={self.request.GET.get('s')}&"
     #     return context
-
-
 
 
 class SongDetailView(HitCountDetailView):
@@ -119,20 +117,17 @@ class UserPlaylist(DetailView):
     context_object_name = 'user_playlist'
 
 
-def add_music(request, pk):
+def add_track_to_playlist(request, pk):
     if request.method == 'POST':
-        if request.user.is_authenticated:
-            music = Song.objects.get(pk=pk)
-            user = request.user
+        playlist = Playlist.objects.filter(list_name=request.POST.get('playlist'))
 
-            playlist = user.user_playlist.first().field.add(music)
-
-            playlist.save()
-            context = {'music': music, 'playlist': playlist, 'user': user}
-            return render(request, 'base_page.html', context)
-    redirect('home')
-
-
+        track = request.POST.get('pk')
+        playlist.splylist.add(track)
+        playlist.save()
+        return redirect('base_page.html', playlist_id=playlist.id)
+    else:
+        tracks = Song.objects.filter(pk=id)
+        return render(request, 'base_page.html', {'tracks': tracks})
 
 
 

@@ -13,7 +13,7 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('profile/<int:pk>/', UserProfile.as_view(), name='user_profile'),
     path('playlist/<int:pk>/', UserPlaylist.as_view(), name='user_playlist'),
-    path('add_music/<int:pk>/', add_music, name='add_music'),
+    path('add_track/<int:pk>/', add_track_to_playlist, name='add_track_to_playlist'),
 
 
     # path('profile/<int:pk>/allplaylists/', UserProfile.as_view(), name='userprofile'),
