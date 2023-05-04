@@ -119,15 +119,14 @@ class UserPlaylist(DetailView):
 
 def add_track_to_playlist(request, pk):
     if request.method == 'POST':
-        playlist = Playlist.objects.filter(list_name=request.POST.get('playlist'))
+        track_id = pk
+        playlist_id = request.POST.get('playlist_id')
+        track = Song.objects.get(pk=track_id)
+        playlist = Playlist.objects.get(pk=playlist_id)
+        playlist.song.add(track)
+        return redirect('home')
 
-        track = request.POST.get('pk')
-        playlist.splylist.add(track)
-        playlist.save()
-        return redirect('base_page.html', playlist_id=playlist.id)
-    else:
-        tracks = Song.objects.filter(pk=id)
-        return render(request, 'base_page.html', {'tracks': tracks})
+
 
 
 

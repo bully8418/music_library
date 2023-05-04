@@ -126,12 +126,12 @@
 
                 {#                    есть в плейлисте <a href=" {% url 'user_playlist' playlist.id %}">{{ playlist.list_name }}</a>  надо доделать  #}
 
-                    <form method="post" action="{% url 'add_track_to_playlist' item.pk %}">
+                    <form method="post" action="{% url 'add_track_to_playlist' item.pk  %}">
                         {% csrf_token %}
                         <label>Playlist:</label>
-                        <select name="playlist">
+                        <select name="playlist_id">
                         {% for playlist in user.user_playlist.all %}
-                            <option> {{ playlist.list_name }} </option>
+                            <option value="{{ playlist.id }}"> {{ playlist.list_name }} </option>
                         {% endfor %}
                         </select>
                         <br>
