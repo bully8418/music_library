@@ -2,7 +2,7 @@
 
 {% block title %}<title>Artist Detail</title>{% endblock %}
 
-
+{% load hitcount_tags %}
 {% block content %}
 
     <b>Имя:</b> {{ artist_info.name }}
@@ -29,7 +29,7 @@
     <b>Популярные треки:</b>
     <br>
     <br>
-
+     {% get_hit_count for artist_info %} <i class="fa fa-eye" aria-hidden="true" ></i>
 
 {% endblock %}
 

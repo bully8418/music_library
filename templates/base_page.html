@@ -109,7 +109,9 @@
                 <br>
                 Название: <a href=" {% url 'detail' item.pk %}">{{ item.name }}</a>
                 <br>
-
+                <br>
+                Прослушиваний: {{ hi }}
+                <br>
                     <br>
 
 
@@ -125,7 +127,7 @@
 
 
                 {#                    есть в плейлисте <a href=" {% url 'user_playlist' playlist.id %}">{{ playlist.list_name }}</a>  надо доделать  #}
-
+                    {% if user.is_authenticated %}
                     <form method="post" action="{% url 'add_track_to_playlist' item.pk  %}">
                         {% csrf_token %}
                         <label>Playlist:</label>
@@ -137,26 +139,9 @@
                         <br>
                         <button type="submit">Add to Playlist</button>
                     </form>
+                    {% endif %}
 
 
-
-            {#            {% if user.is_authenticated %}#}
-            {#            {% if user.user_playlist.exists %}#}
-            {#                <label>#}
-            {#                    {% for play_list in user.user_playlist.all %}#}
-            {#                        <option>{{ play_list }}</option>#}
-            {#                        {% for song in play_list.song.all %}#}
-            {#                        <audio controls>#}
-            {#                            <source src="{{ song.file.url }}">#}
-            {#                        </audio>#}
-            {#                         {% endfor %}#}
-            {#                    {% endfor %}#}
-            {#                </label>#}
-            {#            {% else %}#}
-            {#                no playlist#}
-            {#                <h3>create?</h3>#}
-            {#            {% endif %}#}
-            {#    Просмотров {% get_hit_count for item %}#}
 
 
             <br>

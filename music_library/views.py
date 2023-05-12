@@ -12,7 +12,7 @@ from .forms import *
 from django.db.models import Q, QuerySet
 from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator
-
+from django.contrib import messages
 
 
 class Search(ListView):
@@ -69,6 +69,14 @@ class AlbumsView(ListView):
     model = Album
     template_name = 'albums/albums_list.html'
     context_object_name = 'album_list'
+    count_hit = True
+
+    def get_context_data(self, **kwargs):
+        context = super(AlbumsView, self).get_context_data(**kwargs)
+        context.update({
+            'popular_albums': Album.objects.order_by('-hit_count_generic__hits')[:3],
+        })
+        return context
 
 
 class ArtistsView(ListView):
@@ -84,13 +92,6 @@ class AlbumDetailView(HitCountDetailView):
     pk_url_kwarg = 'pk'
     # set to True to count the hit
     count_hit = True
-
-    def get_context_data(self, **kwargs):
-        context = super(AlbumDetailView, self).get_context_data(**kwargs)
-        context.update({
-            'popular_albums': Album.objects.order_by('-hit_count_generic__hits')[:3],
-        })
-        return context
 
 
 class RegisterUser(CreateView):
@@ -123,6 +124,7 @@ def add_track_to_playlist(request, pk):
         playlist_id = request.POST.get('playlist_id')
         track = Song.objects.get(pk=track_id)
         playlist = Playlist.objects.get(pk=playlist_id)
+        # return messages.add_message(request, messages.SUCCESS, 'Успешно добавлен в плейлист')
         playlist.song.add(track)
         return redirect('home')
 
@@ -131,43 +133,4 @@ def add_track_to_playlist(request, pk):
 
 
 
-
-
-
-
-# def allplaylists_view(request):
-#     playlists = Playlist.objects.filter(user=request.user).all()
-#     currentuser = User
-#     return render(request, 'users/user_profile.html', {'playlists': playlists, 'currentuser': currentuser})
-
-    # def get_queryset(self):
-    #     return Playlist.objects.all(), User
-    #
-    # def playlistsongs_view(request):
-    #     playlists = Playlist.objects.all()
-    #     playlistName = request.GET.get('name')
-    #     return render(request, 'playlists/playlistsongs.html', {'playlists': playlists, 'playlistName': playlistName})
-    #
-    #
-    # def createplaylist_view(request):
-    #     songs = Song.objects
-    #     if request.method == 'POST':
-    #         playlist = Playlist()
-    #         playlist.list_name = request.POST['playlistname']
-    #         playlist.user = request.user
-    #         playlist.save()
-    #         print(playlist.list_name, playlist.user)
-    #         return render(request, 'playlists/addsongs.html', {'songs': songs})
-    #     else:
-    #         return render(request, 'playlists/createplaylist.html', {'songs': songs})
-    #
-    #
-    # def addsongs_view(request, pk):
-    #     songs = Song.objects.all()
-    #     playlist = Playlist.objects
-    #     if request.method == 'POST':
-    #         item = Song.objects.get(id=pk)
-    #         playlist.song = item
-    #         Playlist.objects.update(song=item)
-    #         return render(request, 'playlists/addsongs.html', {'songs': songs})
 

@@ -28,7 +28,10 @@
         <br>
     {% endfor %}
 
-
+  <h2>Популярные альбомы</h2>
+    {% for p in popular_albums %}
+        <a href="{% url 'album' p.pk %}">{{ p }}</a><br>
+    {% endfor %}
 
 {% endblock %}
 {% block scripts %}
