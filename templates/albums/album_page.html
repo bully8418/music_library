@@ -1,7 +1,13 @@
 {% extends 'base_page.html' %}
 {% block title %}<title>Album Detail</title>{% endblock %}
-
+{% load static %}
+{% load ratings %}
 {% load hitcount_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+{% endblock %}
 {% block content %}
 
     <b>Название альбома:</b> {{ album_info.name }}
@@ -17,12 +23,10 @@
     <b>Обложка:</b> <br>
     <img style="height: 10%; width: 10%; margin-left: 4%" src="{{ album_info.poster.url }}">
     <br>
-
     <br>
     <br>
-    <b>Треков в альбоме: {{ album_info.num_songs }}</b>
+    <b>Треков в альбоме: {{ object.song_album.count}}</b>
     <br>
-    {#    Дата публикации: {{ album_info.date }}#}
     <br>
 
     <br>
@@ -39,9 +43,17 @@
         <br>
         <br>
 
-
     {% endfor %}
+    Дата публикации: {{ album_info.year }}
+
+
+    <br>
+    Просмотров: {% get_hit_count for album_info %}
+    <br>
 
 
 {% endblock %}
 
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+{% endblock %}

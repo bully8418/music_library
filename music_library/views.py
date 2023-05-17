@@ -38,7 +38,7 @@ class SongView(ListView):
     queryset = Song.objects.order_by('-date')[:3]
     template_name = 'base_page.html'
     context_object_name = 'music'
-    paginate_by = 1
+    paginate_by = 3
 
     def get_queryset(self):
         return Song.objects.all()
