@@ -124,13 +124,15 @@ def add_track_to_playlist(request, pk):
         playlist_id = request.POST.get('playlist_id')
         track = Song.objects.get(pk=track_id)
         playlist = Playlist.objects.get(pk=playlist_id)
-        # return messages.add_message(request, messages.SUCCESS, 'Успешно добавлен в плейлист')
+        # print(track, playlist)
         playlist.song.add(track)
-        return redirect('home')
+        # return messages.add_message(request, messages.SUCCESS, 'Успешно добавлен в плейлист')
+        return redirect(request.META['HTTP_REFERER'])
 
 
-
-
+def new_songs(request):
+    context = Song.objects.order_by('-date')[:3]
+    return render(request, 'sound/new_songs.html', {'context': context})
 
 
 

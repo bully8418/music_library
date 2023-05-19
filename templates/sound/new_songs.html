@@ -1,3 +1,37 @@
 {% extends 'base_page.html' %}
 
 {% block title %}<title>New</title>{% endblock %}
+
+{% block content %}
+    {% for item in context %}
+
+        <div class="link">
+            Альбом: <a style="text-decoration-color: blue;"
+                       href="{% url 'album' item.album.pk %}">{{ item.album.name }}</a>
+            <br>
+
+            {% for artist_name in item.artist.all %}
+
+                Исполнитель: <a href="{% url 'artist' artist_name.pk %}"> {{ artist_name }}</a>
+            {% endfor %}
+            <br>
+            Название: <a href=" {% url 'detail' item.pk %}">{{ item.name }}</a>
+            <br>
+            <br>
+            {#                Прослушиваний: {% get_hit_count for item %}#}
+            <br>
+            <br>
+
+
+            <div id="player"></div>
+        </div>
+
+        <br>
+        <audio controls>
+            <source src="{{ item.file.url }}">
+        </audio>
+        <br>
+        <br>
+
+    {% endfor %}
+{% endblock %}
