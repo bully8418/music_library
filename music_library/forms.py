@@ -1,11 +1,15 @@
-# from .models import *
-# from django import forms
-#
-#
-# class PlaylistForm(forms.Form):
-#     model = Playlist
-#     title = forms.CharField(label='наименование плейлиста'),
-#     music = forms.SlugField(label='добавь трек'),
-#
-#
-#
+from .models import Playlist
+from django import forms
+from django.forms import ModelForm, CharField
+
+
+class PlaylistCreate(ModelForm):
+    class Meta:
+        model = Playlist
+        fields = ['list_name']
+
+
+
+
+
+

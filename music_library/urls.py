@@ -15,6 +15,7 @@ urlpatterns = [
     path('playlist/<int:pk>/', UserPlaylist.as_view(), name='user_playlist'),
     path('add_track/<int:pk>/', add_track_to_playlist, name='add_track_to_playlist'),
     path('new/', new_songs, name='new_hit'),
+    path('new_playlist/', PlaylistCRT.as_view(), name='new_playlist'),
 
 
     # path('profile/<int:pk>/allplaylists/', UserProfile.as_view(), name='userprofile'),

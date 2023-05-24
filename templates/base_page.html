@@ -128,27 +128,35 @@
 
 
                 {#                    есть в плейлисте <a href=" {% url 'user_playlist' playlist.id %}">{{ playlist.list_name }}</a>  надо доделать  #}
-                    {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'add_track_to_playlist' item.pk  %}">
+            {% if user.is_authenticated %}
+                {% if user.user_playlist.all %}
+                    <form method="post" action="{% url 'add_track_to_playlist' item.pk %}">
                         {% csrf_token %}
                         <label>Playlist:</label>
                         <select name="playlist_id">
-                        {% for playlist in user.user_playlist.all %}
-                            <option value="{{ playlist.id }}"> {{ playlist.list_name }} </option>
-                        {% endfor %}
+                            {% for playlist in user.user_playlist.all %}
+                                <option value="{{ playlist.id }}"> {{ playlist.list_name }} </option>
+                            {% endfor %}
                         </select>
                         <br>
                         <button type="submit">Add to Playlist</button>
                     </form>
-                    {% endif %}
-
-
-
-
+                {% endif %}
+            {% endif %}
             <br>
             <br>
             <br>
         {% endfor %}
+        {% if messages %}
+            <ul class="alert alert-block alert-success">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+
 
     {% endblock %}
 </div>

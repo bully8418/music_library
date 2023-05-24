@@ -124,15 +124,26 @@ def add_track_to_playlist(request, pk):
         playlist_id = request.POST.get('playlist_id')
         track = Song.objects.get(pk=track_id)
         playlist = Playlist.objects.get(pk=playlist_id)
-        # print(track, playlist)
-        playlist.song.add(track)
-        # return messages.add_message(request, messages.SUCCESS, 'Успешно добавлен в плейлист')
-        return redirect(request.META['HTTP_REFERER'])
+        if track in playlist.song.all():
+            messages.success(request, 'Ужее имеется в плейлисте')
+        else:
+            playlist.song.add(track)
+            messages.add_message(request, messages.SUCCESS, 'Успешно добавлен')
+    return redirect(request.META['HTTP_REFERER'])
 
 
 def new_songs(request):
     context = Song.objects.order_by('-date')[:3]
     return render(request, 'sound/new_songs.html', {'context': context})
+
+
+# def new_playlist(request):
+#     return render(request, 'playlists/createplaylist.html')
+
+
+class PlaylistCRT(CreateView):
+    template_name = 'playlists/createplaylist.html'
+    form_class = PlaylistCreate
 
 
 
