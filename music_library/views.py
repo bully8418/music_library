@@ -144,6 +144,14 @@ def new_songs(request):
 class PlaylistCRT(CreateView):
     template_name = 'playlists/createplaylist.html'
     form_class = PlaylistCreate
+    model = Playlist.objects.all()
+    success_url = reverse_lazy('home')
+
+
+
+
+
+
 
 
 
