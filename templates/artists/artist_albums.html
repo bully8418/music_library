@@ -1,0 +1,18 @@
+{% extends 'base_page.html' %}
+{% block title %}<title>Artist Albums</title>{% endblock %}
+
+{% block content %}
+ <b>Альбомы:</b>
+{% for albums in artist_albums.albums_all.all %}
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'album' albums.pk %}">  {{ albums }}</a>
+    <br>
+    <img style="height: 10%; width: 10%; " src="{{ albums.poster.url }}">
+
+{% endfor %}
+{% endblock %}

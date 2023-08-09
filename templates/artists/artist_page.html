@@ -3,33 +3,142 @@
 {% block title %}<title>Artist Detail</title>{% endblock %}
 
 {% load hitcount_tags %}
-{% block content %}
 
-    <b>Имя:</b> {{ artist_info.name }}
-    <br>
-    <b>Жанр:</b> {{ artist_info.genre }}
-    <br>
-    <b>Дата рождения:</b> {{ artist_info.birth_date }}
-    <br>
-    <b>Место рождения:</b> {{ artist_info.home_town }}
-    <br>
-    <b>Об исполнителе </b><a href="{% url 'artist' artist_info.pk %}">{{ artist_info.name }}:</a>
-    {{ artist_info.about }}
-    <br>
-    <br>
-    {% for albums in artist_info.albums_all.all %}
-        <b>Альбомы: </b><a href="{% url 'album' albums.pk %}">  {{ albums }}</a>
-        <br>
-
-        <img style="height: 10%; width: 10%; margin-left: 4%" src="{{ albums.poster.url }}">
-    {% endfor %}
-    <br>
-    <br>
-
-    <b>Популярные треки:</b>
-    <br>
-    <br>
-     {% get_hit_count for artist_info %} <i class="fa fa-eye" aria-hidden="true" ></i>
-
+{% block scripts %}
+    .
+    <style>
+        .round {
+            border-radius: 500px; /* Радиус скругления */
+            border: 3px solid red; /* Параметры рамки */
+            box-shadow: 0 0 7px #666; /* Параметры тени */
+        }
+    </style>
 {% endblock %}
 
+{% block content %}
+
+    <div class="page-artist" data-b="3038">
+        <div class="d-generic-page-head">
+            <div class="d-generic-page-head__aside">
+                <div class="artist-pics artist-pics_size_Giant artist-pics_type_from-artist-photos">
+                    <div class="artist-pics__pic-wrapper deco-entity-image-placeholder"><img
+{#                            src="{{ artist_info.poster.url }}" alt="" class="round"#}
+                            srcset="{{ artist_info.poster.url }}" alt="" class="round"
+                            class="artist-pics__pic"></div>
+                </div>
+            </div>
+            <div class="d-generic-page-head__main">
+                <div class="d-generic-page-head__main-top">
+                    <div class="page-artist__stamp-entity">
+                    </div>
+                    <h1 class="page-artist__title typo-h1 typo-h1_big">{{ artist_info.name }}</h1>
+
+
+                </div>
+            </div>
+            <div class="d-generic-page-head__main-bottom ">
+                <div class="d-generic-page-head__main-actions">
+                    <button class="button-play button2 button2_rounded button2_w-icon local-icon-theme-white page-artist__play button-play__type_artist button-play_playing"
+                            data-b="3041" data-idx="158454"><span
+                            class="d-icon deco-icon d-icon_play-small  "></span><span
+                            class="button2__label">Слушать</span></button>
+                    <span class="d-like d-like_theme-count" data-b="3043"></span>
+                    <div class="d-share-popup d-share-popup_btn" data-b="3045"><span
+                            class="d-button deco-button deco-button-transparent d-button_rounded d-button_size_L d-button_w-icon d-button_w-icon-centered share-container d-share-popup__button not-handled share_transparent"
+                            title="Поделиться" type="button"><span class="d-button-inner deco-button-stylable"><span
+                            class="d-button__inner"><span
+                            class="d-icon deco-icon d-icon_share  "></span></span></span></span></div>
+                </div>
+                <div class="d-generic-page-head__main-side-actions">
+
+                    <div class="d-tooltip deco-tooltip   popup_hidden popup deco-pane-popup d-tooltip_min-width"
+                         data-b="3077">
+                        <div class="deco-tooltip__pointer-before"></div>
+                        <div class="d-tooltip__stair"></div>
+                        <div class="d-tooltip__content deco-tooltip">
+
+                            <div class="d-tooltip-actions d-tooltip-actions__position-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-artist__tabs">
+        <div class="d-tabs deco-border" data-b="3049">
+            <div class="d-tabs__tab typo-caps " data-b="3050" data-tab-id="main"><a href="/artist/158454"
+                                                                                    class="typo-nav d-tabs__link">Главное</a>
+            </div>
+            <div class="d-tabs__tab typo-caps " data-b="3051" data-tab-id="tracks"><a href="/artist/158454/tracks"
+                                                                                      class="typo-nav d-tabs__link">Треки</a>
+
+
+            </div>
+            <div class="d-tabs__tab typo-caps " data-b="3052" data-tab-id="albums"><a href="{% url 'artist_albums' artist_info.pk %}"
+                                                                                      class="typo-nav d-tabs__link">Альбомы</a>
+
+            </div>
+            <div class="d-tabs__tab typo-caps " data-b="3053" data-tab-id="videos"><a href="/artist/158454/videos"
+                                                                                      class="typo-nav d-tabs__link">Клипы</a>
+            </div>
+            <div class="d-tabs__tab typo-caps " data-b="3054" data-tab-id="similar"><a href="/artist/158454/similar"
+                                                                                       class="typo-nav d-tabs__link">Похожие</a>
+            </div>
+
+        </div>
+        <div class="page-artist__info-container">
+            <div class="page-artist__info-sections page-artist__info-row">
+                <div class="page-artist__info-cell">
+                    <div class="page-artist__info-row">
+                        <div class="page-artist__info-cell page-artist__info-cell_wide">
+                            <div class="artist-trends page-artist__section page-artist__listeners-trends" data-b="3057">
+                                <div class="page-section deco-pane-secondary">
+                                    <div class="page-section__header">
+                                        <div class="page-section__title typo typo-medium" title="Слушателей за месяц">
+
+                                        </div>
+                                    </div>
+                                    <div class="page-section__body">
+                                        <div class="artist-trends__detail deco-pane-secondary">
+                                            <div class="d-devider"><span class="d-devider__stripe deco-devider"></span>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <b>Имя:</b> {{ artist_info.name }}
+                            <br>
+                            <b>Жанр:</b> {{ artist_info.genre }}
+                            <br>
+                            <b>Дата рождения:</b> {{ artist_info.birth_date }}
+                            <br>
+                            <b>Место рождения:</b> {{ artist_info.home_town }}
+                            <br>
+                            <b>Об исполнителе </b><a
+                                href="{% url 'artist' artist_info.pk %}">{{ artist_info.name }}:</a>
+                            {{ artist_info.about }}
+                            <br>
+                            <br>
+                            {% for albums in artist_info.albums_all.all %}
+                                <b>Альбомы: </b><a href="{% url 'album' albums.pk %}">  {{ albums }}</a>
+                                <br>
+
+                                <img style="height: 10%; width: 10%; margin-left: 4%" src="{{ albums.poster.url }}">
+                            {% endfor %}
+                            <br>
+                            <br>
+
+                            <b>Популярные треки:</b>
+                            <br>
+                            <br>
+                            {% get_hit_count for artist_info %} <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

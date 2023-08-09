@@ -65,6 +65,12 @@ class ArtistView(DetailView):
     context_object_name = 'artist_info'
 
 
+class ArtistAlbumsView(DetailView):
+    model = Artist
+    template_name = 'artists/artist_albums.html'
+    context_object_name = 'artist_albums'
+
+
 class AlbumsView(ListView):
     model = Album
     template_name = 'albums/albums_list.html'
@@ -147,6 +153,11 @@ class PlaylistCRT(CreateView):
     model = Playlist.objects.all()
     success_url = reverse_lazy('home')
 
+
+# def artist_albums_all(request, pk):
+#     context = Artist.objects.all()
+#     return render(request, 'artists/artist_albums.html', {'context': context, 'pk': pk})
+#
 
 
 
